@@ -26,6 +26,7 @@ steps:
     args:
       - push
       - gcr.io/$PROJECT_ID/keystone-plate
+timeout: 1200s
 images:
   - gcr.io/$PROJECT_ID/keystone-plate
 
