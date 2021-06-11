@@ -1,0 +1,31 @@
+steps:
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - source
+      - repos
+      - clone
+      - default
+      - default
+  - name: bash
+    args:
+      - cp
+      - ./default/keystone/config.js
+      - ./config.js
+  - name: bash
+    args:
+      - cp
+      - ./default/keystone/gcskeyfile.json
+      - ./gcskeyfile.json
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - '-t'
+      - 'gcr.io/${PROJECT_ID}/keystone-plate:${BRANCH_NAME}_${SHORT_SHA}'
+      - .
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - gcr.io/$PROJECT_ID/keystone-plate
+images:
+  - gcr.io/$PROJECT_ID/keystone-plate
+
